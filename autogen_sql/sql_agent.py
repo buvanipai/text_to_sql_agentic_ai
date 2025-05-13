@@ -9,7 +9,12 @@ class SQLAgent:
     """
     
     def __init__(self, model: str = "mistral", temperature: float = 0.0):
-        self.model_client = OllamaChatCompletionClient(model=model, temperature=temperature)
+        self.model_client = OllamaChatCompletionClient(
+            model=model, 
+            temperature=temperature,
+            device="cuda",
+            gpu_layers=12
+        )
         system_prompt = (
             """
             You are a SQL Expert Agent.

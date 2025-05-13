@@ -27,7 +27,7 @@ def main():
     cur = conn.cursor()
     cur.execute("SELECT name FROM sqlite_master WHERE type='table';")
     tables = [row[0] for row in cur.fetchall()]
-    print(f"Tables in {ex["db_id"]} -> {tables}")
+    print(f"Tables in {ex['db_id']} -> {tables}")
     conn.close()
     
 if __name__ == "__main__":

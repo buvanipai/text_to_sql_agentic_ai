@@ -9,7 +9,12 @@ class SchemaAgent():
     """
     
     def __init__(self, model="mistral", temperature=0.0):
-        self.model_client = OllamaChatCompletionClient(model=model, temperature=temperature)
+        self.model_client = OllamaChatCompletionClient(
+            model=model, 
+            temperature=temperature,
+            device="cuda",
+            gpu_layers=12
+        )
         
         system_prompt = ("""
         You are a Schema Summarizer.
