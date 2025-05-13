@@ -45,7 +45,7 @@ class SchemaAgent():
         schema = {}
         
         for tbl in tables:
-            cur.execute(f"PRAGMA table_info({tbl});")
+            cur.execute(f"PRAGMA table_info('{tbl}');")
             cols = [c[1] for c in cur.fetchall()]
             schema[tbl] = cols
         
