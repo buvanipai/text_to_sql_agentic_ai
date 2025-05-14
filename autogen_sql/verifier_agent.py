@@ -64,12 +64,13 @@ class VerifierAgent:
                     "Please debug or refine the SQL so that it runs correctly on SQLite and answers the original question."
                 )
                 resp = await self.agent.run(task=prompt)
+                corrected = None
                 for msg in resp.messages:
                     if msg.source == self.agent.name:
-                        current_sql = msg.content.strip()
+                        corrected = msg.content.strip()
                         break
                 else:
-                    current_sql = resp.messages[-1].content.strip()
+                    current_sql = re.sub(r"^```(?:sql)?\s*|```$", "", corrected).strip()
                 continue
             
             if not rows:
@@ -86,12 +87,8 @@ class VerifierAgent:
                     if msg.source == self.agent.name:
                         candidate = msg.content.strip()
                         break
-                if candidate:
-                    m = re.match(r"^```(?:sql)?\s*([\s\S]*?)\s*```$", candidate)
-                    candidate = m.group(1).strip() if m else candidate
-                    
-                    if candidate.upper().lstrip().startswith("SELECT"):
-                        current_sql = candidate
-                        continue
-                
+                if candidate and candidate.upper().lstrip().startswith("SELECT"):
+                    current_sql = re.sub(r"^```(?:sql)?\s*|```$", "", candidate).strip()
+                    continue
                 return current_sql
+            return current_sql
