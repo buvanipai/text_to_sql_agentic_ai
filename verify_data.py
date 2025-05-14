@@ -4,7 +4,7 @@ from pathlib import Path
 BASE_DATA_DIR = Path("data/mini_dev_data/minidev/MINIDEV")
 
 def main():
-    json_path = BASE_DATA_DIR / "dev_databases.json"
+    json_path = BASE_DATA_DIR / "mini_dev_sqlite.json"
     if not json_path.exists():
         print(f"JSON not found at {json_path}.")
         return
@@ -17,7 +17,7 @@ def main():
     
     db_root = BASE_DATA_DIR / "dev_databases"
     ex = examples[0]
-    db_file = db_root / ex["db_id"] / f"{ex['db_id']}.splite"
+    db_file = db_root / ex["db_id"] / f"{ex['db_id']}.sqlite"
     
     if not db_file.exists():
         print(f"Could not find {db_file}.")
