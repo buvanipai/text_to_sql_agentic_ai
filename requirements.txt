@@ -27,3 +27,7 @@ typing_extensions==4.13.2
 urllib3==2.4.0
 wrapt==1.17.2
 zipp==3.21.0
+func_timeout>=4.3.5
+sqlglot>=16.0.0
+PyMySQL>=1.0.0
+psycopg2-binary>=2.8.0

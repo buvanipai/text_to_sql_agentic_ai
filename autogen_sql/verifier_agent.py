@@ -73,6 +73,9 @@ class VerifierAgent:
                     current_sql = re.sub(r"^```(?:sql)?\s*|```$", "", corrected).strip()
                 continue
             
+            if rows:
+                return current_sql
+            
             if not rows:
                 prompt = (
                     """
@@ -90,5 +93,5 @@ class VerifierAgent:
                 if candidate and candidate.upper().lstrip().startswith("SELECT"):
                     current_sql = re.sub(r"^```(?:sql)?\s*|```$", "", candidate).strip()
                     continue
-                return current_sql
-            return current_sql
+                break
+        return current_sql

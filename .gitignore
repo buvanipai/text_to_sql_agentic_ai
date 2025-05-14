@@ -19,3 +19,7 @@ data/
 .DS_Store
 .vscode/
 test_hello.py
+
+test_all.py
+test_new.py
+*.ipynb

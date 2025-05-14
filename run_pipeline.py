@@ -58,5 +58,17 @@ async def main():
         json.dump(results, f, indent=2)
     print(f"\n Wrote {len(results)} predictions to {out_path}")
     
+    jl = Path("predictions.jsonl")
+    with jl.open("w") as f_jl:
+        for rec in results:
+            f_jl.write(json.dumps(rec) + "\n")
+    print(f"Wrote jsonl to {jl}")
+    
+    di = Path("predictions_dict.json")
+    pred_map = { str(i): rec["predicted_SQL"] for i, rec in enumerate(results) }
+    with di.open("w") as f_di:
+        json.dump(pred_map, f_di, indent=2)
+    print(f"Wrote evaluator-ready dict to {di}")
+    
 if __name__ == "__main__":
     asyncio.run(main())
